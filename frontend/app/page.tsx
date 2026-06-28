@@ -1153,11 +1153,7 @@ axios({
         e.preventDefault();
         handleSaveRequest();
       }
-      if (
-        (e.altKey && (e.key === "t" || e.key === "T")) ||
-        (e.altKey && (e.key === "n" || e.key === "N")) ||
-        ((e.ctrlKey || e.metaKey) && e.altKey && e.key === "t")
-      ) {
+      if (e.altKey && (e.key === "t" || e.key === "T")) {
         e.preventDefault();
         openNewTab();
       }
