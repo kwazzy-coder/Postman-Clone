@@ -235,12 +235,12 @@ export default function Home() {
       setIsDarkMode(localTheme === "dark");
     }
 
-    fetch("localhost:8000/collections")
+    fetch("https://postman-clone-backend-bhfx.onrender.com/collections")
       .then((res) => res.json())
       .then((data) => setCollections(Array.isArray(data) ? data : []))
       .catch(() => showToast("Could not fetch collections from backend", "error"));
 
-    fetch("localhost:8000/environments")
+    fetch("https://postman-clone-backend-bhfx.onrender.com/environments")
       .then((res) => res.json())
       .then((envs) => {
         const list = Array.isArray(envs) ? envs : [];
@@ -251,7 +251,7 @@ export default function Home() {
       })
       .catch(() => showToast("Could not fetch environments", "error"));
 
-    fetch("localhost:8000/history")
+    fetch("https://postman-clone-backend-bhfx.onrender.com/history")
       .then((res) => res.json())
       .then((data) => setHistoryItems(Array.isArray(data) ? data : []))
       .catch(() => {});
@@ -260,7 +260,7 @@ export default function Home() {
   // Fetch requests for selected collection
   useEffect(() => {
     if (activeCollectionId !== null) {
-      fetch(`localhost:8000/collections/${activeCollectionId}/requests`)
+      fetch(`https://postman-clone-backend-bhfx.onrender.com/collections/${activeCollectionId}/requests`)
         .then((res) => res.json())
         .then((data) => setSavedRequests(Array.isArray(data) ? data : []))
         .catch(() => showToast("Failed to load requests", "error"));
@@ -448,7 +448,7 @@ export default function Home() {
         auth: activeTab.auth
       };
 
-      const res = await fetch("localhost:8000/send", {
+      const res = await fetch("https://postman-clone-backend-bhfx.onrender.com/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -467,7 +467,7 @@ export default function Home() {
       }));
 
       // Refresh history list
-      fetch("localhost:8000/history")
+      fetch("https://postman-clone-backend-bhfx.onrender.com/history")
         .then(r => r.json())
         .then(h => setHistoryItems(Array.isArray(h) ? h : []));
 
@@ -504,7 +504,7 @@ export default function Home() {
       };
 
       try {
-        await fetch(`localhost:8000/requests/${activeTab.savedRequestId}`, {
+        await fetch(`https://postman-clone-backend-bhfx.onrender.com/requests/${activeTab.savedRequestId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
@@ -514,7 +514,7 @@ export default function Home() {
         
         // Refresh saved requests inside list
         if (activeCollectionId !== null) {
-          fetch(`localhost:8000/collections/${activeCollectionId}/requests`)
+          fetch(`https://postman-clone-backend-bhfx.onrender.com/collections/${activeCollectionId}/requests`)
             .then((res) => res.json())
             .then(setSavedRequests);
         }
@@ -553,7 +553,7 @@ export default function Home() {
     };
 
     try {
-      const res = await fetch("localhost:8000/requests", {
+      const res = await fetch("https://postman-clone-backend-bhfx.onrender.com/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -584,7 +584,7 @@ export default function Home() {
     e.stopPropagation();
     if (!confirm("Are you sure you want to delete this request?")) return;
     try {
-      await fetch(`localhost:8000/requests/${requestId}`, { method: "DELETE" });
+      await fetch(`https://postman-clone-backend-bhfx.onrender.com/requests/${requestId}`, { method: "DELETE" });
       setSavedRequests(prev => prev.filter(r => r.id !== requestId));
       showToast("Request deleted", "success");
       
@@ -663,7 +663,7 @@ export default function Home() {
   const submitCreateCollection = async () => {
     if (!modalInputName.trim()) return;
     try {
-      const res = await fetch("localhost:8000/collections", {
+      const res = await fetch("https://postman-clone-backend-bhfx.onrender.com/collections", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: modalInputName })
@@ -688,7 +688,7 @@ export default function Home() {
   const submitRenameCollection = async () => {
     if (!modalInputName.trim() || modalTargetId === null) return;
     try {
-      await fetch(`localhost:8000/collections/${modalTargetId}`, {
+      await fetch(`https://postman-clone-backend-bhfx.onrender.com/collections/${modalTargetId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: modalInputName })
@@ -705,7 +705,7 @@ export default function Home() {
     e.stopPropagation();
     if (!confirm(`Delete collection "${col.name}" and all its requests?`)) return;
     try {
-      await fetch(`localhost:8000/collections/${col.id}`, { method: "DELETE" });
+      await fetch(`https://postman-clone-backend-bhfx.onrender.com/collections/${col.id}`, { method: "DELETE" });
       setCollections(prev => prev.filter(c => c.id !== col.id));
       if (activeCollectionId === col.id) {
         setActiveCollectionId(null);
@@ -765,7 +765,7 @@ export default function Home() {
     try {
       if (modalTargetId === null) {
         // Create environment
-        const res = await fetch("localhost:8000/environments", {
+        const res = await fetch("https://postman-clone-backend-bhfx.onrender.com/environments", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: modalInputName, variables: varsObj })
@@ -776,7 +776,7 @@ export default function Home() {
         showToast("Environment created", "success");
       } else {
         // Update environment
-        const res = await fetch(`localhost:8000/environments/${modalTargetId}`, {
+        const res = await fetch(`https://postman-clone-backend-bhfx.onrender.com/environments/${modalTargetId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: modalInputName, variables: varsObj })
@@ -795,7 +795,7 @@ export default function Home() {
     e.stopPropagation();
     if (!confirm(`Delete environment "${env.name}"?`)) return;
     try {
-      await fetch(`localhost:8000/environments/${env.id}`, { method: "DELETE" });
+      await fetch(`https://postman-clone-backend-bhfx.onrender.com/environments/${env.id}`, { method: "DELETE" });
       const nextEnvs = environments.filter(e => e.id !== env.id);
       setEnvironments(nextEnvs);
       if (selectedEnvironmentId === env.id) {
@@ -905,7 +905,7 @@ axios({
   const handleExportCollection = async (col: Collection, e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const res = await fetch(`localhost:8000/collections/${col.id}/requests`);
+      const res = await fetch(`https://postman-clone-backend-bhfx.onrender.com/collections/${col.id}/requests`);
       const reqs = await res.json();
       
       const postmanCollection = {
@@ -963,7 +963,7 @@ axios({
         const name = parsed.info?.name || "Imported Collection";
         
         // Create collection
-        const colRes = await fetch("localhost:8000/collections", {
+        const colRes = await fetch("https://postman-clone-backend-bhfx.onrender.com/collections", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name })
@@ -992,7 +992,7 @@ axios({
             }
           }
 
-          await fetch("localhost:8000/requests", {
+          await fetch("https://postman-clone-backend-bhfx.onrender.com/requests", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -1010,7 +1010,7 @@ axios({
         }
 
         // Refresh collections
-        fetch("localhost:8000/collections")
+        fetch("https://postman-clone-backend-bhfx.onrender.com/collections")
           .then((res) => res.json())
           .then((data) => setCollections(Array.isArray(data) ? data : []));
         
@@ -1025,7 +1025,7 @@ axios({
 
   const triggerManageCookies = async () => {
     try {
-      const res = await fetch("localhost:8000/cookies");
+      const res = await fetch("https://postman-clone-backend-bhfx.onrender.com/cookies");
       const data = await res.json();
       setCookies(Array.isArray(data) ? data : []);
       setCookieNewDomain("");
@@ -1046,12 +1046,12 @@ axios({
       expires: null
     };
     try {
-      await fetch("localhost:8000/cookies", {
+      await fetch("https://postman-clone-backend-bhfx.onrender.com/cookies", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const res = await fetch("localhost:8000/cookies").then(r => r.json());
+      const res = await fetch("https://postman-clone-backend-bhfx.onrender.com/cookies").then(r => r.json());
       setCookies(res);
       setCookieNewDomain("");
       showToast(`Domain ${domainName} added`, "success");
@@ -1066,7 +1066,7 @@ axios({
       return;
     }
     try {
-      await fetch("localhost:8000/cookies", {
+      await fetch("https://postman-clone-backend-bhfx.onrender.com/cookies", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1077,7 +1077,7 @@ axios({
           expires: cookie.expires
         })
       });
-      const res = await fetch("localhost:8000/cookies").then(r => r.json());
+      const res = await fetch("https://postman-clone-backend-bhfx.onrender.com/cookies").then(r => r.json());
       setCookies(res);
       showToast("Cookie saved", "success");
     } catch {
@@ -1087,7 +1087,7 @@ axios({
 
   const handleDeleteCookieItem = async (cookieId: number) => {
     try {
-      await fetch(`localhost:8000/cookies/${cookieId}`, {
+      await fetch(`https://postman-clone-backend-bhfx.onrender.com/cookies/${cookieId}`, {
         method: "DELETE"
       });
       setCookies(prev => prev.filter(c => c.id !== cookieId));
@@ -1153,7 +1153,11 @@ axios({
         e.preventDefault();
         handleSaveRequest();
       }
-      if ((e.ctrlKey || e.metaKey) && e.key === "t") {
+      if (
+        (e.altKey && (e.key === "t" || e.key === "T")) ||
+        (e.altKey && (e.key === "n" || e.key === "N")) ||
+        ((e.ctrlKey || e.metaKey) && e.altKey && e.key === "t")
+      ) {
         e.preventDefault();
         openNewTab();
       }

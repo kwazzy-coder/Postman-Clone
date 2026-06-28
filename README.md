@@ -44,7 +44,7 @@ A fully functional Postman clone replicating the visual layout, user experience,
 10. **Code Snippet Generator**:
     *   Generate code snippets for **cURL**, **Fetch (JS)**, **Python Requests**, and **Node.js (Axios)** from the active request configuration.
 11. **Keyboard Shortcuts**:
-    *   Global hotkeys matching Postman: `Ctrl + Enter` to Send the active request, `Ctrl + S` to Save/update requests, and `Ctrl + T` to open a new request tab.
+    *   Global hotkeys: `Ctrl + Enter` to Send the active request, `Ctrl + S` to Save/update requests, and `Alt + T` / `Alt + N` to open a new request tab (bypasses browser conflict).
 12. **Cookie Management**:
     *   SQLite-backed cookie store parsing and persisting `Set-Cookie` response headers automatically.
     *   Outbound requests auto-attach matching cookies based on domain path and subdomain wildcards.
