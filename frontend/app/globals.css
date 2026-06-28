@@ -1,0 +1,194 @@
+/* Design System for Postman Clone */
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.2s, color 0.2s;
+  height: 100vh;
+  font-size: 13px;
+}
+
+/* Dark Mode Theme */
+.theme-dark {
+  --bg-main: #1C1C1C;
+  --bg-sidebar: #212121;
+  --bg-panel: #141414;
+  --bg-tab-active: #1C1C1C;
+  --bg-tab-inactive: #262626;
+  --bg-tab-hover: #2F2F2F;
+  --border-color: #2F2F2F;
+  --border-light: #262626;
+  --text-primary: #e6e6e6;
+  --text-secondary: #a6a6a6;
+  --text-muted: #6b6b6b;
+  --accent: #ff6c37;
+  --accent-hover: #e05320;
+  --input-bg: #2b2b2b;
+  --input-border: #3a3a3a;
+  --input-focus: #097bed;
+  --btn-secondary: #2b2b2b;
+  --btn-secondary-hover: #3a3a3a;
+  --row-hover: #262626;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --error: #ff5252;
+  --success: #5cc85c;
+  --warning: #ff9800;
+  --btn-send-bg: #097bed;
+  --btn-send-hover: #0265d2;
+}
+
+/* Light Mode Theme */
+.theme-light {
+  --bg-main: #ffffff;
+  --bg-sidebar: #f2f2f2;
+  --bg-panel: #fafafa;
+  --bg-tab-active: #ffffff;
+  --bg-tab-inactive: #eaeaea;
+  --bg-tab-hover: #f2f2f2;
+  --border-color: #e6e6e6;
+  --border-light: #f0f0f0;
+  --text-primary: #1c1c1c;
+  --text-secondary: #6b6b6b;
+  --text-muted: #9b9b9b;
+  --accent: #ff6c37;
+  --accent-hover: #e05320;
+  --input-bg: #ffffff;
+  --input-border: #cccccc;
+  --input-focus: #097bed;
+  --btn-secondary: #eef0f3;
+  --btn-secondary-hover: #e2e5e9;
+  --row-hover: #f5f5f5;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --error: #d32f2f;
+  --success: #388e3c;
+  --warning: #f57c00;
+  --btn-send-bg: #097bed;
+  --btn-send-hover: #0265d2;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+.theme-dark ::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 4px;
+}
+.theme-dark ::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
+.theme-light ::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 4px;
+}
+.theme-light ::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* JSON Syntax Highlighting */
+.json-key {
+  color: #ff79c6 !important;
+  font-weight: 500;
+}
+.theme-light .json-key {
+  color: #c41a16 !important;
+}
+.json-string {
+  color: #f1fa8c !important;
+}
+.theme-light .json-string {
+  color: #268bd2 !important;
+}
+.json-number {
+  color: #bd93f9 !important;
+}
+.theme-light .json-number {
+  color: #1c00cf !important;
+}
+.json-boolean {
+  color: #ffb86c !important;
+}
+.theme-light .json-boolean {
+  color: #aa5d00 !important;
+}
+.json-null {
+  color: #8be9fd !important;
+}
+.theme-light .json-null {
+  color: #7f7f7f !important;
+}
+
+/* HTTP Method Badge Colors */
+.method-get { color: #5cc85c !important; }
+.method-post { color: #f2c744 !important; }
+.method-put { color: #3f9af7 !important; }
+.method-patch { color: #a362e5 !important; }
+.method-delete { color: #ff5252 !important; }
+.method-head { color: #7ad1c4 !important; }
+.method-options { color: #cccccc !important; }
+
+/* Status Badges */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+.status-success {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+}
+.status-client-error, .status-server-error {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #f44336;
+}
+.status-redirect {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #ff9800;
+}
+
+/* General Layout Utilities */
+input, select, textarea, button {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  border-radius: 4px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 1px rgba(255, 108, 55, 0.25);
+}
+
+button {
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:active {
+  transform: translateY(0.5px);
+}
