@@ -1412,7 +1412,19 @@ axios({
                       <span className="history-url" title={hist.request_data.url}>{hist.request_data.url}</span>
                     </div>
                     <div className="history-bottom">
-                      <span className="history-time">{new Date(hist.created_at).toLocaleTimeString()}</span>
+                      <span className="history-time">
+                        {(() => {
+                          const dateStr = hist.created_at || "";
+                          const cleanStr = !dateStr.includes("Z") && !dateStr.includes("T")
+                            ? dateStr.replace(" ", "T") + "Z"
+                            : dateStr;
+                          try {
+                            return new Date(cleanStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                          } catch {
+                            return dateStr;
+                          }
+                        })()}
+                      </span>
                       {hist.response_data && (
                         <span className={`history-status ${hist.response_data.is_error ? "status-err" : ""}`}>
                           {hist.response_data.status_code || "Network Err"}
